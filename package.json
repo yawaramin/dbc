@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "bsb -make-world",
-    "test": "node ./src/Test.bs.js"
+    "test": "bsb -clean && bsb && node ./src/Test.bs.js"
   },
   "keywords": [
     "BuckleScript", "ReasonML", "OCaml", "design by contract"
