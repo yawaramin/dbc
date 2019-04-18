@@ -32,7 +32,8 @@ But this note on defensive programming from the excellent
 
 ## Usage
 
-See the `Yawaramin__Dbc.rei` file for detailed ReasonML usage.
+See the `src/Yawaramin__Dbc.rei` file for detailed ReasonML
+documentation.
 
 For JavaScript, usage is as follows.
 
@@ -69,7 +70,7 @@ function integerDiv(num, denom) {
 ### Tips
 
 For best results, don't use this library to check types (including '`x`
-is not `null`). I recommend using a typechecker (like ReasonML or
+is not `null`'). I recommend using a typechecker (like ReasonML or
 TypeScript) to do that. Use `pre` and `post` to check invariants that
 can't _easily_ be expressed as types, like 'weight must be 5 kg minimum'.
 

@@ -1,17 +1,5 @@
-/** Helpers for programming in a design-by-contract style. Here's an
-    example usage:
-
-    {[module Dbc = Yawaramin__Dbc;
-
-let integerDiv(num, denom) = {
-  Dbc.pre(~message={j|$num >= $denom|j}, num >= denom);
-  Dbc.pre(~message={j|$denom != 0|j}, denom != 0);
-  let ensure = Dbc.post(~message={j|result * $denom == $num|j}, (. result) =>
-    result * denom == num
-  );
-
-  ensure(. num / denom);
-}]} */
+/** Helpers for programming in a design-by-contract style. See [Test.re]
+    for an example usage. */
 
 /** [pre(~message, condition)] throws a [TypeError] with the given
     [message] if the [condition] doesn't hold. Otherwise it does nothing. */

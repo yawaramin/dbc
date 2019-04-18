@@ -7,15 +7,14 @@ var Yawaramin__Dbc = require("./Yawaramin__Dbc.bs.js");
 function integerDiv(num, denom) {
   Yawaramin__Dbc.pre("" + (String(num) + (" >= " + (String(denom) + ""))), num >= denom);
   Yawaramin__Dbc.pre("" + (String(denom) + " != 0"), denom !== 0);
-  var ensure = Yawaramin__Dbc.post("resultNum >= (num - 1) && resultNum <= num", (function (result) {
-          var resultNum = Caml_int32.imul(result, denom);
-          if (resultNum >= (num - 1 | 0)) {
-            return resultNum <= num;
-          } else {
-            return false;
-          }
-        }));
-  return ensure(Caml_int32.div(num, denom));
+  return Yawaramin__Dbc.post("resultNum >= (num - 1) && resultNum <= num", (function (result) {
+                  var resultNum = Caml_int32.imul(result, denom);
+                  if (resultNum >= (num - 1 | 0)) {
+                    return resultNum <= num;
+                  } else {
+                    return false;
+                  }
+                }))(Caml_int32.div(num, denom));
 }
 
 console.log(integerDiv(3, 2));
