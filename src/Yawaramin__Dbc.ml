@@ -2,7 +2,7 @@
 #else
 external typeError : string -> exn = "TypeError" [@@bs.new]
 let error message  =
-  {j|Failed assertion: $message|j} |> typeError |> raise
+  {j|Contract broken: $message|j} |> typeError |> raise
 #end
 
 let pre ?(message="(no description)") condition =

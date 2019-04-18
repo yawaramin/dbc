@@ -3,7 +3,7 @@
 
 
 function error(message) {
-  throw new TypeError("Failed assertion: " + (String(message) + ""));
+  throw new TypeError("Contract broken: " + (String(message) + ""));
 }
 
 function pre($staropt$star, condition) {
