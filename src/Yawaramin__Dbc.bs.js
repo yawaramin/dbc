@@ -2,14 +2,12 @@
 'use strict';
 
 
-var noDescription = "(no description)";
-
 function error(message) {
   throw new TypeError("Failed assertion: " + (String(message) + ""));
 }
 
 function pre($staropt$star, condition) {
-  var message = $staropt$star !== undefined ? $staropt$star : noDescription;
+  var message = $staropt$star !== undefined ? $staropt$star : "(no description)";
   if (condition) {
     return 0;
   } else {
@@ -18,7 +16,7 @@ function pre($staropt$star, condition) {
 }
 
 function post($staropt$star, func) {
-  var message = $staropt$star !== undefined ? $staropt$star : noDescription;
+  var message = $staropt$star !== undefined ? $staropt$star : "(no description)";
   return (function (result) {
       if (func(result)) {
         return result;

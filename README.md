@@ -32,9 +32,6 @@ But this note on defensive programming from the excellent
 
 ## Usage
 
-See the `src/Yawaramin__Dbc.rei` file for detailed ReasonML
-documentation.
-
 For JavaScript, usage is as follows.
 
 ### `pre(condition, [message])`
@@ -67,6 +64,16 @@ function integerDiv(num, denom) {
 }
 ```
 
+### ReasonML/BuckleScript
+
+See the `src/Yawaramin__Dbc.rei` file for detailed ReasonML documentation
+on the functions.
+
+ReasonML usage has an extra feature if you need it: all checks can be
+erased for production use. The idea being that you test thoroughly with
+all checks turned on during development, and deploy with them turned off
+(if you need to). See below for the command.
+
 ### Tips
 
 For best results, don't use this library to check types (including '`x`
@@ -76,7 +83,18 @@ can't _easily_ be expressed as types, like 'weight must be 5 kg minimum'.
 
 # Build
 
+Development:
+
     npm run build
+
+Production:
+
+    NODE_ENV=production npm run build # this turns off all checks
+
+If you actually decide to keep checks on in production (imho a good
+thing), you can always keep them on explicitly:
+
+    NODE_ENV= npm run build
 
 # Test
 
