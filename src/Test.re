@@ -1,10 +1,10 @@
 module Dbc = Yawaramin__Dbc;
 
 let safeDiv(num, denom) = {
-  Dbc.pre(~message={j|num >= denom|j}, num >= denom);
-  Dbc.pre(~message={j|denom != 0|j}, denom != 0.);
+  Dbc.pre(~message="num >= denom", num >= denom);
+  Dbc.pre(~message="denom != 0", denom != 0.);
   Dbc.post(
-    ~message={j|safeDiv(num, denom) *. denom == num|j},
+    ~message="safeDiv(num, denom) *. denom == num",
     (. result) => result *. denom == num,
   )(. num /. denom);
 };

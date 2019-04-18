@@ -1,8 +1,7 @@
 #if defined NODE_ENV && NODE_ENV = "production" then
 #else
 external typeError : string -> exn = "TypeError" [@@bs.new]
-let error message  =
-  {j|Contract broken: $message|j} |> typeError |> raise
+let error message  = message |> typeError |> raise
 #end
 
 let pre ?(message="(no description)") condition =
@@ -10,7 +9,7 @@ let pre ?(message="(no description)") condition =
   ignore message;
   ignore condition
 #else
-  if not condition then error message
+  if not condition then error {j|Precondition broken: $message|j}
 #end
 
 let post ?(message="(no description)") func = fun [@bs] result ->
@@ -19,5 +18,6 @@ let post ?(message="(no description)") func = fun [@bs] result ->
   ignore func;
   result
 #else
-  if (func result) [@bs] then result else error message
+  if (func result) [@bs] then result
+  else error {j|Postcondition broken: $message|j}
 #end

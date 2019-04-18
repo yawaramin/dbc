@@ -2,16 +2,13 @@
 'use strict';
 
 
-function error(message) {
-  throw new TypeError("Contract broken: " + (String(message) + ""));
-}
-
 function pre($staropt$star, condition) {
   var message = $staropt$star !== undefined ? $staropt$star : "(no description)";
   if (condition) {
     return 0;
   } else {
-    return error(message);
+    var message$1 = "Precondition broken: " + (String(message) + "");
+    throw new TypeError(message$1);
   }
 }
 
@@ -21,7 +18,8 @@ function post($staropt$star, func) {
       if (func(result)) {
         return result;
       } else {
-        return error(message);
+        var message$1 = "Postcondition broken: " + (String(message) + "");
+        throw new TypeError(message$1);
       }
     });
 }

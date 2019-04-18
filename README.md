@@ -53,11 +53,11 @@ a `TypeError` with the given `message` (or a default if not passed in).
 const {pre, post} = require('@yawaramin/dbc');
 
 function safeDiv(num, denom) {
-  pre(num >= denom, `num >= denom`);
-  pre(denom !== 0, `denom !== 0`);
+  pre(num >= denom, 'num >= denom');
+  pre(denom !== 0, 'denom !== 0');
   const ensure = post(
     result => result * denom === num,
-    `safeDiv(num, denom) * denom === num`,
+    'safeDiv(num, denom) * denom === num',
   );
 
   return ensure(num / denom);
