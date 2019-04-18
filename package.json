@@ -1,0 +1,17 @@
+{
+  "name": "@yawaramin/dbc",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "bsb -make-world",
+    "test": "node ./src/Test.bs.js"
+  },
+  "keywords": [
+    "BuckleScript", "ReasonML", "OCaml", "design by contract"
+  ],
+  "author": "Yawar Amin",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^4.0.0"
+  }
+}
