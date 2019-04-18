@@ -4,9 +4,9 @@
 var Yawaramin__Dbc = require("./Yawaramin__Dbc.bs.js");
 
 function safeDiv(num, denom) {
-  Yawaramin__Dbc.pre("" + (String(num) + (" >= " + (String(denom) + ""))), num >= denom);
-  Yawaramin__Dbc.pre("" + (String(denom) + " != 0"), denom !== 0);
-  return Yawaramin__Dbc.post("safeDiv(" + (String(num) + (", " + (String(denom) + (") *. " + (String(denom) + (" == " + (String(num) + ""))))))), (function (result) {
+  Yawaramin__Dbc.pre("num >= denom", num >= denom);
+  Yawaramin__Dbc.pre("denom != 0", denom !== 0);
+  return Yawaramin__Dbc.post("safeDiv(num, denom) *. denom == num", (function (result) {
                   return result * denom === num;
                 }))(num / denom);
 }
