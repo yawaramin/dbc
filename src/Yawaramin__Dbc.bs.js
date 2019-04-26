@@ -2,6 +2,32 @@
 'use strict';
 
 
+function contract(pre, post, body) {
+  pre.forEach((function (param) {
+          if (param[1]) {
+            return 0;
+          } else {
+            var message = "Precondition broken: " + (String(param[0]) + "");
+            throw new TypeError(message);
+          }
+        }));
+  post(body).forEach((function (param) {
+          if (param[1]) {
+            return 0;
+          } else {
+            var message = "Postcondition broken: " + (String(param[0]) + "");
+            throw new TypeError(message);
+          }
+        }));
+  return body;
+}
+
+function noPost(param) {
+  return (function (param) {
+      return /* array */[];
+    });
+}
+
 function pre($staropt$star, condition) {
   var message = $staropt$star !== undefined ? $staropt$star : "(no description)";
   if (condition) {
@@ -24,6 +50,8 @@ function post($staropt$star, func) {
     });
 }
 
+exports.contract = contract;
+exports.noPost = noPost;
 exports.pre = pre;
 exports.post = post;
 /* No side effect */

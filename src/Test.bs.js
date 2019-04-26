@@ -4,17 +4,52 @@
 var Yawaramin__Dbc = require("./Yawaramin__Dbc.bs.js");
 
 function safeDiv(num, denom) {
+  return Yawaramin__Dbc.contract(/* array */[
+              /* tuple */[
+                "num >= denom",
+                num >= denom
+              ],
+              /* tuple */[
+                "denom != 0.",
+                denom !== 0
+              ]
+            ], (function (result) {
+                return /* array */[/* tuple */[
+                          "safeDiv(num, denom) *. denom == num",
+                          result * denom === num
+                        ]];
+              }), num / denom);
+}
+
+function safeDivOld(num, denom) {
   Yawaramin__Dbc.pre("num >= denom", num >= denom);
-  Yawaramin__Dbc.pre("denom != 0", denom !== 0);
-  return Yawaramin__Dbc.post("safeDiv(num, denom) *. denom == num", (function (result) {
-                  return result * denom === num;
-                }))(num / denom);
+  Yawaramin__Dbc.pre("denom != 0.", denom !== 0);
+  var ensure = Yawaramin__Dbc.post("safeDiv(num, denom) *. denom == num", (function (result) {
+          return result * denom === num;
+        }));
+  return ensure(num / denom);
+}
+
+function makeUser(name, age) {
+  return Yawaramin__Dbc.contract(/* array */[/* tuple */[
+                "age >= 13",
+                age >= 13
+              ]], Yawaramin__Dbc.noPost(/* () */0), {
+              name: name,
+              age: age
+            });
 }
 
 console.log(safeDiv(3, 2));
+
+console.log(safeDivOld(3, 2));
+
+console.log(makeUser("Bob", 13));
 
 var Dbc = 0;
 
 exports.Dbc = Dbc;
 exports.safeDiv = safeDiv;
+exports.safeDivOld = safeDivOld;
+exports.makeUser = makeUser;
 /*  Not a pure module */

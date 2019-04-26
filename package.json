@@ -1,9 +1,9 @@
 {
   "name": "@yawaramin/dbc",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "index.js",
   "scripts": {
-    "build": "bsb -make-world",
+    "build": "bsb -clean-world && bsb -make-world",
     "test": "bsb -clean && bsb && node ./src/Test.bs.js"
   },
   "keywords": [

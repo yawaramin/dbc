@@ -34,40 +34,48 @@ But this note on defensive programming from the excellent
 
 For JavaScript, usage is as follows.
 
-### `pre(condition, [message])`
+### `contract(body[, pre[, post]])`
 
-Throws a `TypeError` with the given `message` if `condition` doesn't
-hold. Otherwise it does nothing. If `message` is not passed in, uses a
-default message.
+The `body` is the body of the function itself, and is required. `pre` is
+an array of (array) pairs of string descriptions and boolean
+preconditions, and is optional. `post` is a function that takes the final
+result of the function being contracted, and returns an array of pairs of
+postcondition descriptions and booleans.
 
-### `post(func, [message])`
+Throws a `TypeError` at the first precondition or postcondition
+violation.
 
-Returns a function which can be used to ensure a postcondition, i.e. a
-requirement that the function result must ensure. This requirement on the
-result is specified by `func`. If the requirement is not met, will throw
-a `TypeError` with the given `message` (or a default if not passed in).
+### `pre`, `post`
+
+These are older APIs; you'll probably want to use `contract` instead.
 
 ### Example
 
 ```javascript
-const {pre, post} = require('@yawaramin/dbc');
+const {contract} = require('@yawaramin/dbc');
 
-function safeDiv(num, denom) {
-  pre(num >= denom, 'num >= denom');
-  pre(denom !== 0, 'denom !== 0');
-  const ensure = post(
-    result => result * denom === num,
-    'safeDiv(num, denom) * denom === num',
-  );
+const safeDiv = (num, denom) => contract(
+  num / denom,
+  /* pre: */ [
+    ['num >= denom', num >= denom],
+    ['denom !== 0', denom !== 0],
+  ],
+  /* post: */ result => [
+    ['safeDiv(num, denom) * denom === num', result * denom === num],
+  ],
+);
 
-  return ensure(num / denom);
-}
+const makeUser = (name, age) => contract(
+  {name, age},
+  /* pre: */ [['age >= 13', age >= 13]],
+  // post is optional
+);
 ```
 
 ### ReasonML/BuckleScript
 
-See the `src/Yawaramin__Dbc.rei` file for detailed ReasonML documentation
-on the functions.
+See the `src/Yawaramin__Dbc.mli` file for detailed ReasonML documentation
+on the functions, and `src/Test.re` for example usage.
 
 ReasonML usage has an extra feature if you need it: all checks can be
 erased for production use. The idea being that you test thoroughly with
