@@ -1,0 +1,12 @@
+dependencies:
+  bs-platform: 8.4.2
+lockfileVersion: 5.2
+packages:
+  /bs-platform/8.4.2:
+    dev: false
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-9q7S4/LLV/a68CweN382NJdCCr/lOSsJR3oQYnmPK98ChfO/AdiA3lYQkQTp6T+U0I5Z5RypUAUprNstwDtMDQ==
+specifiers:
+  bs-platform: ^8.4.0
